@@ -6,7 +6,9 @@ import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import reducers from './reducers/allreducers'
 // import { syncHistoryWithStore } from 'react-router-redux'
-import routes from './routes'
+
+import MainRoutes from './routes'
+import Nav from './components/Nav'
 
 import { BrowserRouter as Router } from 'react-router-dom'
 
@@ -17,7 +19,10 @@ const store = createStore(reducers, applyMiddleware(thunkMiddleware, loggerMiddl
 ReactDOM.render(
 	<Provider store={store}>
 		<Router>
-			{ routes }
+			<div>
+				<Nav/>
+				<MainRoutes/>
+			</div>
 		</Router>
 	</Provider>,
 	document.getElementById('app')

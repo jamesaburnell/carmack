@@ -8,18 +8,19 @@ import { login } from './../actions'
 class Login extends Component {
 	
 	constructor(props){
-		
 		super(props)
 		this._handleSubmit = this._handleSubmit.bind(this)
 		this.state = {
 			email: '',
 			password: ''
 		}
-
 	}
 
-	componentDidMount() {
-		TweenMax.from(this.refs.container, 0.3, {alpha: 0})
+	componentDidUpdate() {
+		console.log('update')
+		const { user, token, history } = this.props
+		console.log(user, token, this.props)
+		if(!!user && !!token) history.push('/')
 	}
 
 	_handleSubmit() {
@@ -30,13 +31,11 @@ class Login extends Component {
 	}
 
 	render() {
-		
+		console.log('mount')
 		return (
 
 			<div>
 
-				<Nav />
-				
 				<div ref="container" className="container">	
 					
 					<div className="sign-in-form">
@@ -61,12 +60,12 @@ class Login extends Component {
 
 					</div>
 
-					<div 
+					<button 
 					className="btn btn-default"
 					onClick={this._handleSubmit}
 					>
 						Submit
-					</div>
+					</button>
 
 				</div>
 
@@ -77,5 +76,7 @@ class Login extends Component {
 }
 
 export default connect(state => ({
-	dispatch: state.dispatch
+	dispatch: state.dispatch,
+	user: state.authReducer.user,
+	token: state.authReducer.token
 }))(Login)

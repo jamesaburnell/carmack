@@ -21,7 +21,7 @@ export function login(options) {
 			}
 		})
 		.then(res => JSON.parse(res.body))
-		.then(res => dispatch(res.success ? loginSuccess(res) : loginFailure(res)))
+		.then(res => dispatch(!!res.error ? loginFailure(res) : loginSuccess(res)))
 	}
 	
 }
@@ -32,10 +32,10 @@ function loginStart() {
 	}
 }
 
-function loginSuccess(res){
+function loginSuccess(data){
 	return {
 		type: LOGIN_SUCCESS,
-		data: { ...res }
+		data
 	}
 }
 

@@ -2,7 +2,7 @@ var webpack = require('webpack')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HTMLWebpackPlugin = require('html-webpack-plugin')
 var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-
+var path = require('path')
 var PROD = false
 
 module.exports = {
@@ -11,6 +11,12 @@ module.exports = {
 	output: {
 		filename: 'bundle.js',
 		path: __dirname + '/dist'
+	},
+	devServer: {
+		historyApiFallback: true,
+		port: 8888,
+		compress: true,
+		contentBase: path.resolve(__dirname, 'dist')
 	},
 	module: {
 		loaders: [
@@ -42,6 +48,7 @@ module.exports = {
 		tls: 'empty'
 	},
 	watch: true,
+	
 	plugins: PROD ? [
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {warnings: false}

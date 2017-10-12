@@ -1,6 +1,6 @@
 export const ALBUMS = [
     {
-        title: 'Album 1',
+        title: 'REKINDLING',
         artwork: 'testimg1.jpg',
         tracks: [
             'Align.mp3'
@@ -14,25 +14,29 @@ export const ALBUMS = [
         ]
     },
     {
-        title: 'Album 3',
+        title: 'DIMEBAG',
+        artwork: 'testimg3.jpg',
         tracks: [
             'Align.mp3'
         ]
     },
     {
         title: 'Album 4',
+        artwork: 'testimg4.jpg',
         tracks: [
             'Align.mp3'
         ]
     },
     {
-        title: 'Album 5',
+        title: 'RED EP',
+        artwork: 'testimg5.jpg',
         tracks: [
             'Align.mp3'
         ]
     },
     {
-        title: 'Album 6',
+        title: 'DRUGS EP',
+        artwork: 'testimg6.jpg',
         tracks: [
             'Align.mp3'
         ]

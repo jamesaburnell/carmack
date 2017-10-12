@@ -9,11 +9,10 @@ export default function reducer(state = {}, action) {
 		case LOGIN_SUCCESS:
 			return {
 				...state,
-				token: action.data.token,
-				user: action.data.user
+				token: action.data.user.token,
+				user: action.data.user.email
 			}
 
-		// case LOGIN_SUCCESS
 
 		default:
 			return state

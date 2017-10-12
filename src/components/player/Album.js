@@ -1,18 +1,22 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { findDOMNode } from 'react-dom'
 import Waveform from './WaveForm'
 
 class Album extends Component {
     constructor(props){
         super(props)
-        // this._handleMouseOver = this._handleMouseOver.bind(this)
         this._toggleOpen = this._toggleOpen.bind(this)
         this.state = {
             open: false
         }
     }
 
-    // _handleMouseOver() { }
+    componentDidMount() {
+        const {artwork} = this.props.album
+        let node = findDOMNode(this)
+        node.style.background = `url('${artwork}') center`
+    }
 
     _toggleOpen() {
         this.setState({open: !this.state.open})
@@ -30,9 +34,8 @@ class Album extends Component {
             onMouseEnter={() => this.setState({ hovering: true })}
             onMouseLeave={() => this.setState({ hovering: false })}
             style={{
-                height: isOpen ? (170*tracks.length) : hovering ? 20 : 10,
-                width: isOpen ? '60%' : hovering ? '53%' : '50%',
-                backgroundImage: `url('./../assets/${artwork}') center`
+                height: isOpen ? 500 : hovering ? 60 : 50,
+                width: isOpen ? 500 : hovering ? 400 : 380
             }}
             >
                 {
