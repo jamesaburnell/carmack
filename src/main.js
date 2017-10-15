@@ -16,6 +16,8 @@ const loggerMiddleware = createLogger()
 const store = createStore(reducers, applyMiddleware(thunkMiddleware, loggerMiddleware))
 // const history = syncHistoryWithStore(browserHistory, store)
 
+import './bootstrap/bootstrap.css'
+
 ReactDOM.render(
 	<Provider store={store}>
 		<Router>

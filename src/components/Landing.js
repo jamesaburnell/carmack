@@ -37,7 +37,6 @@ class Landing extends Component {
 		return (
 			<div className='app-container'>
 				{/* <Nav /> */}
-				<h1>#FOREWARDTHINKERSGROUP</h1>
 				<AlbumsController />
 			</div>
 		)

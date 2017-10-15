@@ -14,6 +14,7 @@ class Register extends Component {
 		this._next = this._next.bind(this)
 		this._updateInformation = this._updateInformation.bind(this)
 		this._renderStep = this._renderStep.bind(this)
+		this._submit = this._submit.bind(this)
 
 		this.state = {
 			step: 1,
@@ -39,15 +40,18 @@ class Register extends Component {
 		this.props.history.push('/')
 	}
 
+	_onToken(token) {
+		console.log('token')
+	}
+
 	_renderStep() {
 		const { step } = this.state
-		const { _next, _updateInformation } = this
+		const { _next, _updateInformation, _submit, _onToken } = this
 		switch(step) {
 			case 1: 
-				return RegisterStep1({_next, _updateInformation})
-						
+				return RegisterStep1({_next, _updateInformation, _onToken})
 			case 2:
-				return RegisterStep2({_next, _updateInformation})
+				return RegisterStep2({_next, _updateInformation, _onToken})
 			case 3:
 				return RegisterStep3({_submit, _updateInformation})
 			default:

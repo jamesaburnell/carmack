@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Nav from './Nav'
-
+import './login.scss'
 import { login } from './../actions'
 
 class Login extends Component {
@@ -31,32 +31,28 @@ class Login extends Component {
 	}
 
 	render() {
-		console.log('mount')
 		return (
-
 			<div>
-
 				<div ref="container" className="container">	
-					
-					<div className="sign-in-form">
+					<div className="form-group login-form">
 
 						<h4>Login</h4>
 
-						<label>
-							email
+						<div className="form-section">
+							<label>email</label>
 							<input 
 							type="text" 
 							onChange={e => this.setState({email: e.target.value})}
 							/>
-						</label>
-						
-						<label>
-							password
+						</div>
+
+						<div className="form-section">
+							<label>password</label>
 							<input 
 							type="password" 
 							onChange={e => this.setState({password: e.target.value})}
 							/>
-						</label>
+						</div>
 
 					</div>
 
@@ -64,13 +60,19 @@ class Login extends Component {
 					className="btn btn-default"
 					onClick={this._handleSubmit}
 					>
-						Submit
+						Login
 					</button>
 
+					{/* <button 
+					className="btn btn-default"
+					onClick={this._handleSubmit}
+					>
+						Register
+					</button> */}
+
+					<Link className="btn btn-default" to='/register'>Register</Link>
 				</div>
-
 			</div>
-
 		)
 	}
 }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
+import './nav.scss'
+
 export default class Nav extends Component {
 
 	constructor(props) {
@@ -15,13 +17,13 @@ export default class Nav extends Component {
 					
 					<div className="navbar-header">
 
-						<Link to='/' className="navbar-brand"><img src='nav-brand-2-resize.png'></img></Link>
+						<div className="header-logo-main">#FOREWARDTHINKERSGROUP</div>
 
 					</div>
 
 					<ul className="nav navbar-nav navbar-right">
 						<li><Link to='/login'>Login</Link></li>
-						<li><Link to='/register'>Home</Link></li>
+						<li><Link to='/'>Home</Link></li>
 					</ul>
 
 				</div>
