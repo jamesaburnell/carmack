@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Album from './Album'
 import { ALBUMS } from './../../constants/constants.js'
+import { selectAlbum } from './../../actions'
 
 class AlbumsController extends Component {
     constructor(props) {
@@ -12,6 +13,8 @@ class AlbumsController extends Component {
 
     _openAlbum(index) {
         this.setState({ openIndex: index })
+        this.props.dispatch(selectAlbum(ALBUMS[index]))
+        this.props.history.push('/album')
     }
 
     render() {

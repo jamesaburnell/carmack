@@ -1,0 +1,2 @@
+export const SELECT_TRACK = 'SELECT_TRACK'
+export const CLOSE_PLAYER = 'CLOSE_PLAYER'

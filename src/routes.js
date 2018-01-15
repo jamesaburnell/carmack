@@ -4,6 +4,8 @@ import App from './app'
 import Landing from './components/Landing'
 import Login from './components/Login'
 import Register from './components/register'
+import AlbumPage from './components/player/AlbumPage'
+import Forum from './components/forum/Forum.js'
 
 const MainRoutes = () =>	
 	<div>
@@ -11,6 +13,8 @@ const MainRoutes = () =>
 			<Route exact path='/' component={Landing} />
 			<Route path='/login' component={Login} />
 			<Route path='/register' component={Register} />
+			<Route path='/album' component={AlbumPage} />
+			<Route path='/forum' component={Forum} />
 		</Switch>
 	</div>
 

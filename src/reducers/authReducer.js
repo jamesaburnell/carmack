@@ -13,7 +13,6 @@ export default function reducer(state = {}, action) {
 				user: action.data.user.email
 			}
 
-
 		default:
 			return state
 

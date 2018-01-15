@@ -1,0 +1,11 @@
+.album-page-container {
+    margin-top: 100px;
+
+    .album-page-track {
+        cursor: pointer;
+
+        &:hover {
+            color: lightblue;
+        }
+    }
+}

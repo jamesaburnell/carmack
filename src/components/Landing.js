@@ -37,7 +37,7 @@ class Landing extends Component {
 		return (
 			<div className='app-container'>
 				{/* <Nav /> */}
-				<AlbumsController />
+				<AlbumsController history={this.props.history} dispatch={this.props.dispatch} />
 			</div>
 		)
 	}
