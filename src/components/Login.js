@@ -17,9 +17,7 @@ class Login extends Component {
 	}
 
 	componentDidUpdate() {
-		console.log('update')
 		const { user, token, history } = this.props
-		console.log(user, token, this.props)
 		if(!!user && !!token) history.push('/')
 	}
 
@@ -35,9 +33,7 @@ class Login extends Component {
 			<div>
 				<div ref="container" className="container">	
 					<div className="form-group login-form">
-
 						<h4>Login</h4>
-
 						<div className="form-section">
 							<label>email</label>
 							<input 
@@ -45,7 +41,6 @@ class Login extends Component {
 							onChange={e => this.setState({email: e.target.value})}
 							/>
 						</div>
-
 						<div className="form-section">
 							<label>password</label>
 							<input 
@@ -53,23 +48,13 @@ class Login extends Component {
 							onChange={e => this.setState({password: e.target.value})}
 							/>
 						</div>
-
 					</div>
-
 					<button 
 					className="btn btn-default"
 					onClick={this._handleSubmit}
 					>
 						Login
 					</button>
-
-					{/* <button 
-					className="btn btn-default"
-					onClick={this._handleSubmit}
-					>
-						Register
-					</button> */}
-
 					<Link className="btn btn-default" to='/register'>Register</Link>
 				</div>
 			</div>

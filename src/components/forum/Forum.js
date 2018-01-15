@@ -1,14 +1,25 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-export default class Forum extends Component {
+class Forum extends Component {
 
 	constructor(props) {
         super(props)
 	}
 
 	render() {
-		return (
-			<div>Forum</div>
-		)
+        return (
+            <div style={{marginTop: 200}}>
+                {    
+                    this.props.threads.map(e => 
+                        <div>{e.question}</div>
+                    )
+                }
+            </div>
+        )
 	}
 }
+
+export default connect(state => ({
+    threads: state.forum.threads
+}))(Forum)
