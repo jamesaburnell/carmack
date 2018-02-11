@@ -5,8 +5,8 @@ class Forum extends Component {
 
 	constructor(props) {
         super(props)
-	}
-
+    }
+    å
 	render() {
         return (
             <div style={{marginTop: 200}}>
