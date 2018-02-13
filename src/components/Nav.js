@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import './nav.scss'
 
-export default class Nav extends Component {
+class Nav extends Component {
 
 	constructor(props) {
 		super(props)
@@ -18,6 +19,7 @@ export default class Nav extends Component {
 					</div>
 					<ul className="nav navbar-nav navbar-right">
 						<li><Link to='/login'>Login</Link></li>
+						<li><Link to='/forum'>Forum</Link></li>
 						<li><Link to='/'>Home</Link></li>
 					</ul>
 				</div>
@@ -25,3 +27,8 @@ export default class Nav extends Component {
 		)
 	}
 }
+
+export default connect( state => ({
+	auth: state.authReducer
+}))(Nav)
+

@@ -1,9 +1,12 @@
 export const SELECT_THREAD = 'SELECT_THREAD'
+export const UPVOTE = 'UPVOTE'
+export const DOWNVOTE = 'DOWNVOTE'
 
 export const THREADS = [
     {
         id: '123',
         question: 'is this question number 1?',
+        votes: 0,
         comments: [
             {
                 id: '135',
@@ -20,6 +23,7 @@ export const THREADS = [
     {
         id: '456',
         question: 'is this question number 2?',
+        votes: 0,
         comments: [
             {
                 id: '246',
@@ -36,6 +40,7 @@ export const THREADS = [
     {
         id: '789',
         question: 'is this question number 3?',
+        votes: 0,
         comments: [
             {
                 id: '579',

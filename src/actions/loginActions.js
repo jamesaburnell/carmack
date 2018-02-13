@@ -12,16 +12,24 @@ import api from './../api'
 export function login(options) {
 	const { email, password } = options
 	return dispatch => {
-		dispatch(loginStart())
-		api.post({
-			route: '/login',
-			payload: {
-				email,
-				password
-			}
-		})
-		.then(res => JSON.parse(res.body))
-		.then(res => dispatch(!!res.error ? loginFailure(res) : loginSuccess(res)))
+		// dispatch(loginStart())
+		// api.post({
+		// 	route: '/login',
+		// 	payload: {
+		// 		email,
+		// 		password
+		// 	}
+		// })
+		// .then(res => JSON.parse(res.body))
+		// .then(res => dispatch(!!res.error ? loginFailure(res) : loginSuccess(res)))
+		if(email === 'test') {
+			dispatch(loginSuccess({
+				user: {
+					email: 'test',
+					token: 6969
+				}
+			}))
+		}
 	}
 	
 }
@@ -33,6 +41,7 @@ function loginStart() {
 }
 
 function loginSuccess(data){
+	console.log('success!')
 	return {
 		type: LOGIN_SUCCESS,
 		data
