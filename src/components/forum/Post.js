@@ -1,5 +1,15 @@
 import React, { Component } from 'react'
 
+import { 
+    PostContainer, 
+    VoteNumContainer, 
+    VoteActionContainer, 
+    VoteAction, 
+    QuestionContainer, 
+    Question,
+    QuestionInfo 
+} from './styled'
+
 const Post = ({
     upvote, 
     downvote, 
@@ -8,64 +18,37 @@ const Post = ({
     addedBy,
     votes
 }) => 
-    <div className="col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2" style={{
-        border: 'solid 1px #000', 
-        padding: '20px 35px', 
-        margin: '10px',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center'
-    }}>
-        <div style={{
-            fontSize: '25px',
-            textAlign: 'center'
-        }}>
+    <PostContainer className="col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+        
+        <VoteNumContainer>
             {votes}
-        </div>
-        <div style={{
-            width: '15%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-around'
-        }}>
-            <div 
-            onClick={upvote}
-            style={{
-                textDecoration: 'underline', 
-                cursor: 'pointer'
-            }}>
+        </VoteNumContainer>
+       
+       <VoteActionContainer>
+            
+            <VoteAction onClick={upvote}>
                 upvote
-            </div>
-            <div 
-            onClick={downvote}
-            style={{
-                textDecoration: 'underline', 
-                cursor: 'pointer'
-            }}>
+            </VoteAction>
+
+            <VoteAction onClick={downvote}>
                 downvote
-            </div>
-        </div>
-        <div style={{
-            width: '70%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-around'
-        }}>
-            <div style={{
-                cursor: 'pointer',
-                fontSize: '30px'
-            }}>
+            </VoteAction>
+
+        </VoteActionContainer>
+        
+        <QuestionContainer>
+            
+            <Question>
                 {question}
-            </div>
-            <div style={{
-                display: 'flex',
-                flexDirection: 'row'
-            }}>
+            </Question>
+
+            <QuestionInfo>
                 <div>comments: {comments.length}</div>
                 <div>added by: {addedBy}</div>
-            </div>
-        </div>
-    </div>
+            </QuestionInfo>
+
+        </QuestionContainer>
+
+    </PostContainer>
 
 export default Post

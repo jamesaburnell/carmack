@@ -1,7 +1,6 @@
 export const SELECT_THREAD = 'SELECT_THREAD'
 export const UPVOTE = 'UPVOTE'
 export const DOWNVOTE = 'DOWNVOTE'
-
 export const THREADS = [
     {
         id: '123',

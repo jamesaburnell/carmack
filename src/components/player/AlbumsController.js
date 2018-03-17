@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Album from './Album'
 import { ALBUMS } from './../../constants/constants.js'
 import { selectAlbum } from './../../actions'
+import { AlbumsContainer } from './styled'
 
 class AlbumsController extends Component {
     constructor(props) {
@@ -23,11 +24,11 @@ class AlbumsController extends Component {
                 {
                     ALBUMS.map((element, index) => 
                         <Album 
-                        album={element}
-                        key={`${index}-${element.title}`}
-                        isOpen={index === this.state.openIndex}
-                        openAlbum={this._openAlbum}
-                        index={index}
+                            album={element}
+                            key={`${index}-${element.title}`}
+                            isOpen={index === this.state.openIndex}
+                            openAlbum={this._openAlbum}
+                            index={index}
                         />
                     )
                 }
