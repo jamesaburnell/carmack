@@ -1,26 +1,29 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Post from './Post'
-import { upvote, downvote } from './../../actions'
+import { upvote, downvote, selectThread } from './../../actions'
 import { ForumContainer } from './styled'
 
-const Forum = ({ threads, dispatch }) => 
-    <ForumContainer>
+const Forum = ({ threads, dispatch, history }) => 
+    <ForumContainer className="container">
         {    
-            threads.map(({question, comments, votes, id}) => 
+            threads.map(thread => 
                 <Post 
-                question={question} 
-                comments={comments} 
-                votes={votes} 
-                upvote={() => dispatch(upvote(id))}
-                downvote={() => dispatch(downvote(id))}
+                question={thread.question} 
+                comments={thread.comments} 
+                votes={thread.votes} 
+                upvote={() => dispatch(upvote(thread.id))}
+                downvote={() => dispatch(downvote(thread.id))}
+                _handlePostSelect={() => {
+                    dispatch(selectThread(thread))
+                    history.push('/post')
+                }}
                 />
             )
         }
     </ForumContainer>
 
 export default connect(state => ({
-    dispatch: state.dispatch,
     threads: state.forum.threads,
     votes: state.forum.votes
 }))(Forum)

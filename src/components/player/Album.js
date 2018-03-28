@@ -1,26 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { AlbumWrapper, AlbumHoverBox } from './styled'
+import { Cursor } from './../commonStyled'
 
 const Album = ({
-    album, 
+    artwork, 
     openAlbum, 
-    isOpen, 
     index
-}) => {
-    const { artwork } = album
-    return (
-        <div 
-        className={`album-wrapper cursor`}
-        onClick={() => openAlbum(index)}
-        style={{background: `url('${artwork}') center`}}
-        >
-            <div className="album-hover-box" />
-        </div>
-    )
-}
+}) => (
+    <AlbumWrapper artwork={artwork} onClick={() => openAlbum(index)} >
+        <Cursor>
+            <AlbumHoverBox />
+        </Cursor>
+    </AlbumWrapper>
+)
 
 export default Album
 
 Album.propTypes = {
-    album: PropTypes.object.isRequired,
+    artwork: PropTypes.string.isRequired,
 }

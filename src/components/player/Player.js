@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import Waveform from './WaveForm'
 import { connect } from 'react-redux'
-import './player.scss'
+import { PlayerContainer } from './styled'
 
 class Player extends Component {
+    
     constructor(props){
         super(props)
         this.state = {}
@@ -12,14 +13,9 @@ class Player extends Component {
     render() {
         const { track, trackSelected } = this.props
         return (
-            <div className="player-container">
-                { 
-                    trackSelected && 
-                    <Waveform 
-                    audioFile={`${track}`}
-                    />
-                }
-            </div>
+            <PlayerContainer>
+                {  trackSelected && <Waveform audioFile={`${track}`} /> }
+            </PlayerContainer>
         )
     }
 }

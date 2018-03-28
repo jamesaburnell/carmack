@@ -20,19 +20,18 @@ class AlbumsController extends Component {
 
     render() {
         return (
-            <div className='albums-container'>
+            <AlbumsContainer>
                 {
                     ALBUMS.map((element, index) => 
                         <Album 
-                            album={element}
+                            artwork={element.artwork}
                             key={`${index}-${element.title}`}
-                            isOpen={index === this.state.openIndex}
                             openAlbum={this._openAlbum}
                             index={index}
                         />
                     )
                 }
-            </div>
+            </AlbumsContainer>
         )
     }
 }

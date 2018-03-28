@@ -1,44 +1,37 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import './albumPage.scss'
 import { selectTrack } from './../../actions'
+import { AlbumPageContainer, AlbumPageTrack, AlbumPageTrackList } from './styled'
 
-class AlbumPage extends Component {
+const AlbumPage = ({ 
+    activeAlbum, 
+    dispatch,
+    history
+}) => (
+    <AlbumPageContainer className="container">
+        <div 
+            className="back-btn btn btn-primary"
+            onClick={() => history.push('/')}
+        >
+            back
+        </div>
+        <h1>{activeAlbum.title}</h1>
+        <AlbumPageTrackList>
+            {
+                activeAlbum.tracks.map((ele, index) => 
+                    <AlbumPageTrack 
+                        onClick={() => dispatch(selectTrack(ele))} 
+                        key={index} 
+                    >
+                        {ele}
+                    </AlbumPageTrack>
+                )
+            }
+        </AlbumPageTrackList>
+    </AlbumPageContainer>
+)
 
-    constructor(props) {
-        super(props)
-        this.state = {}
-    }
-
-    render() {
-        const { activeAlbum, dispatch } = this.props
-        return (
-            <div className="album-page-container container">
-                <div 
-                className="back-btn btn btn-primary"
-                onClick={() => this.props.history.push('/')}
-                >
-                    back
-                </div>
-                <h1>{activeAlbum.title}</h1>
-                <ul className="albums-page-track-list">
-                    {
-                        activeAlbum.tracks.map((ele, index) => 
-                            <li 
-                            onClick={() => dispatch(selectTrack(ele))}
-                            className="album-page-track" 
-                            key={index}
-                            >
-                                {ele}
-                            </li>
-                        )
-                    }
-                </ul>
-            </div>
-        )
-    }
-}
 
 export default connect(state => ({
     activeAlbum: state.albums.activeAlbum

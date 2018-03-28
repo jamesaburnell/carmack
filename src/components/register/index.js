@@ -49,7 +49,7 @@ class Register extends Component {
 		const { _next, _updateInformation, _submit, _onToken } = this
 		switch(step) {
 			case 1: 
-				return RegisterStep1({_next, _updateInformation, _onToken})
+				return RegisterStep1({_next, _updateInformation})
 			case 2:
 				return RegisterStep2({_next, _updateInformation, _onToken})
 			case 3:
@@ -61,13 +61,11 @@ class Register extends Component {
 
 	render() {
 		return (
-			<div>
-				<div ref="container" className="container">
-					<h4>
-						Register
-					</h4>
-					{ this._renderStep() }
-				</div>
+			<div className="container">
+				<h4>
+					Register
+				</h4>
+				{ this._renderStep() }
 			</div>
 		)
 	}

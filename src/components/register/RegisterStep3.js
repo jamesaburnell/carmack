@@ -3,7 +3,7 @@ import React from 'react'
 const RegisterStep3 = ({
     _submit, 
     _updateInformation
-}) => 
+}) => (
     <div>
         Step 3
         <div 
@@ -13,4 +13,6 @@ const RegisterStep3 = ({
             Submit
         </div>
     </div>
+)
+    
 export default RegisterStep3

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Wavesurfer from 'react-wavesurfer'
 import PropTypes from 'prop-types'
+import { WaveFormContainer, PlayButton } from './styled'
 
 export default class Waveform extends Component {
 	
@@ -27,24 +28,19 @@ export default class Waveform extends Component {
 		const { audioFile } = this.props
 		
 		return (
-			<div className='waveform-container'>
-
-				<div
-				onClick={this._togglePlay}
-				> 
+			<WaveFormContainer>
+				<PlayButton onClick={this._togglePlay} > 
 					{ this.state.playing ? 'PAUSE' : 'PLAY' } 
-				</div>
-				
+				</PlayButton>
 				<Wavesurfer
-				audioFile={audioFile}
-				pos={pos}
-				onPosChange={this._handlePosChange}
-				playing={playing}
-				options={{ barWidth: 2, height: 50 }}
-				responsive={true}
+					audioFile={audioFile}
+					pos={pos}
+					onPosChange={this._handlePosChange}
+					playing={playing}
+					options={{ barWidth: 2, height: 50 }}
+					responsive={true}
 				/>
-
-			</div>
+			</WaveFormContainer>
 		)
 	}
 }

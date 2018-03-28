@@ -6,6 +6,7 @@ import Login from './components/Login'
 import Register from './components/register'
 import AlbumPage from './components/player/AlbumPage'
 import Forum from './components/forum/Forum.js'
+import PostPage from './components/forum/PostPage.js'
 
 const MainRoutes = () =>	
 	<div>
@@ -15,6 +16,7 @@ const MainRoutes = () =>
 			<Route path='/register' component={Register} />
 			<Route path='/album' component={AlbumPage} />
 			<Route path='/forum' component={Forum} />
+			<Route path='/post' component={PostPage} />
 		</Switch>
 	</div>
 

@@ -2,7 +2,7 @@ import {
 	LOGIN_SUCCESS
 } from './../constants/authConstants'
 
-export default function reducer(state = {user: 'test', email: 'test', token: 123}, action) {
+export default function reducer(state = {/*user: 'test', email: 'test', token: 123 */}, action) {
 	
 	switch(action.type) {
 		

@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-class Forum extends Component {
+class PostPage extends Component {
 
 	constructor(props) {
         super(props)
     }
     
 	render() {
-        const {dispatch} = this.props
+        const {selectedThread} = this.props
+        console.log('SELECTED THREAD: ', selectedThread)
         return (
-           <div></div>
+           <div>POST</div>
         )
     }
-    
 }
 
 export default connect(state => ({
-    dispatch: state.dispatch
-}))(Forum)
+    selectedThread: state.forum.selectedThread
+}))(PostPage)

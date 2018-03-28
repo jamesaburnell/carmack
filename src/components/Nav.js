@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-
-import './nav.scss'
+import { HeaderLogoMain } from './commonStyled'
 
 class Nav extends Component {
 
@@ -12,16 +11,18 @@ class Nav extends Component {
 
 	render() {
 		return (
-			<nav className="navbar navbar-default navbar-fixed-top">
+			<nav className="navbar navbar-expand-lg fixed-top navbar-light bg-light">
 				<div className="container">
 					<div className="navbar-header">
-						<div className="header-logo-main">#FOREWARDTHINKERSGROUP</div>
+						<HeaderLogoMain>#FOREWARDTHINKERSGROUP</HeaderLogoMain>
 					</div>
-					<ul className="nav navbar-nav navbar-right">
-						<li><Link to='/login'>Login</Link></li>
-						<li><Link to='/forum'>Forum</Link></li>
-						<li><Link to='/'>Home</Link></li>
-					</ul>
+					<nav className="collapse navbar-collapse">
+						<ul className="nav navbar-nav navbar-right">
+							<li className="nav-item"><Link className="nav-link" to='/login'>Login</Link></li>
+							<li className="nav-item"><Link className="nav-link" to='/forum'>Forum</Link></li>
+							<li className="nav-item"><Link className="nav-link" to='/'>Home</Link></li>
+						</ul>
+					</nav>
 				</div>
 			</nav>
 		)
