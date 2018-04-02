@@ -5,7 +5,7 @@ export const ForumContainer = styled.div`
 `
 
 export const PostContainer = styled.div`
-    border: solid 1px #000; 
+    border: solid 1px #eee; 
     padding: 20px 35px; 
     margin: 10px;
     display: flex;
@@ -47,3 +47,5 @@ export const QuestionInfo = styled.div`
     display: flex;
     flex-direction: row;
 `
+
+

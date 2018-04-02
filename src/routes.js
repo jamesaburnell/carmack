@@ -6,10 +6,10 @@ import Login from './components/Login'
 import Register from './components/register'
 import AlbumPage from './components/player/AlbumPage'
 import Forum from './components/forum/Forum.js'
-import PostPage from './components/forum/PostPage.js'
+import PostPage from './components/forum/PostPage'
 
 const MainRoutes = () =>	
-	<div>
+	<div style={{marginBottom: 150, marginTop: 150}}>
 		<Switch>
 			<Route exact path='/' component={Landing} />
 			<Route path='/login' component={Login} />

@@ -32,3 +32,8 @@ export const LoginFormSection = styled.div`
     justify-content: flex-end;
     align-items: baseline;
 `
+
+export const TextArea = styled.textarea`
+    width: 100%;
+    border: solid 1px #d8eadd;
+`

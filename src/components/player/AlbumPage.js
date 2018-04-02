@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { selectTrack } from './../../actions'
 import { AlbumPageContainer, AlbumPageTrack, AlbumPageTrackList } from './styled'
+import {BackButton} from '../common'
 
 const AlbumPage = ({ 
     activeAlbum, 
@@ -10,12 +11,9 @@ const AlbumPage = ({
     history
 }) => (
     <AlbumPageContainer className="container">
-        <div 
-            className="back-btn btn btn-primary"
-            onClick={() => history.push('/')}
-        >
-            back
-        </div>
+        
+        <BackButton history={history} route={'/'} />
+        
         <h1>{activeAlbum.title}</h1>
         <AlbumPageTrackList>
             {

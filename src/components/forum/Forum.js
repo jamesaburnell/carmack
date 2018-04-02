@@ -18,6 +18,7 @@ const Forum = ({ threads, dispatch, history }) =>
                     dispatch(selectThread(thread))
                     history.push('/post')
                 }}
+                key={thread.id}
                 />
             )
         }
