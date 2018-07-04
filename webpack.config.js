@@ -49,7 +49,7 @@ module.exports = {
 		tls: 'empty'
 	},
 	watch: true,
-	
+	devtool: 'cheap-module-eval-source-map',
 	plugins: PROD ? [
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {warnings: false}

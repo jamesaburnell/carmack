@@ -26,9 +26,17 @@ class Landing extends Component {
 		this._checkLoginStatus()
 	}
 
+	componentWillUpdate() {
+		this._checkLoginStatus()
+	}
+
+	componentDidUpdate() {
+		this._checkLoginStatus()		
+	}
+	
 	_checkLoginStatus() {
-		const { user, token } = this.props.auth
-		if(!user && !token) {
+		const { user, uid } = this.props.auth
+		if(!user || !uid) {
 			this.props.history.push('/login')
 		}
 	}
@@ -36,7 +44,6 @@ class Landing extends Component {
 	render() {
 		return (
 			<AppContainer>
-				{/* <Nav /> */}
 				<AlbumsController history={this.props.history} dispatch={this.props.dispatch} />
 			</AppContainer>
 		)

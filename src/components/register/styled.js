@@ -1,11 +1,10 @@
 import styled from 'styled-components'
 
 export const RegisterForm = styled.div`
-    margin-top: 100px;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    height: 140px;
 `
 
 export const FormSection = styled.div`
@@ -13,6 +12,7 @@ export const FormSection = styled.div`
     flex-direction: column;
     justify-content: flex-end;
     align-items: baseline;
+    min-height: 50px;
 `
 
 export const RegisterStep2Styled = styled.div`

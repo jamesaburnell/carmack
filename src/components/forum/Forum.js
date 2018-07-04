@@ -9,16 +9,16 @@ const Forum = ({ threads, dispatch, history }) =>
         {    
             threads.map(thread => 
                 <Post 
-                question={thread.question} 
-                comments={thread.comments} 
-                votes={thread.votes} 
-                upvote={() => dispatch(upvote(thread.id))}
-                downvote={() => dispatch(downvote(thread.id))}
-                _handlePostSelect={() => {
-                    dispatch(selectThread(thread))
-                    history.push('/post')
-                }}
-                key={thread.id}
+                    question={thread.question} 
+                    comments={thread.comments} 
+                    votes={thread.votes} 
+                    upvote={() => dispatch(upvote(thread.id))}
+                    downvote={() => dispatch(downvote(thread.id))}
+                    _handlePostSelect={() => {
+                        dispatch(selectThread(thread))
+                        history.push('/post')
+                    }}
+                    key={thread.id}
                 />
             )
         }

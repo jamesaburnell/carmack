@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const PostPageContainer_Styled = styled.div`
     margin-top: 150px;
+    color: ${p => p.active ? 'blue' : 'green'}
 `
 
 export const PostPageQuestion_Styled = styled.h1`

@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { 
-    PostPageContainer_Styled, 
-    PostPageQuestion_Styled
-} from './styled'
-import { BackButton } from '../../common'
+import { PostPageContainer_Styled, PostPageQuestion_Styled } from './styled'
 import CommentsController from './CommentsController'
 import Comment from './Comment'
+import { BackButton } from '../../common'
 import { addComment } from '../../../actions'
 
 class PostPage extends Component {
@@ -16,7 +13,7 @@ class PostPage extends Component {
         this._addComment = this._addComment.bind(this)
     }
 
-    _addComment(value){
+    _addComment(value) {
         const {dispatch, selectedThread} = this.props
         dispatch(addComment('question', value, {
             ...selectedThread,
@@ -29,20 +26,16 @@ class PostPage extends Component {
     }
 
 	render() {
-        const {selectedThread, history} = this.props
+        const { selectedThread, history } = this.props
         return (
-            <PostPageContainer_Styled className="container">
-
+            <PostPageContainer_Styled active={true} className="container">
                 <BackButton history={history} route={"/forum"} />
-                
                 <PostPageQuestion_Styled>
                     <Comment _addComment={this._addComment}>
                         {selectedThread.question}
                     </Comment>
                 </PostPageQuestion_Styled>
-               
                 <CommentsController />
-
             </PostPageContainer_Styled>
         )
     }

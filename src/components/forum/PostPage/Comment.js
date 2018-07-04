@@ -46,14 +46,12 @@ export default class Comment extends Component {
                 <div>
                     {!showCommentTextArea && <Button _click={this._openTextArea}>+</Button>}
                 </div>
-                {
-                    showCommentTextArea && 
-                    <div>
-                        <TextArea onChange={this._handleTextInput} />
-                        <Button _click={this._handleAddComment}>+</Button>
-                        <Button _click={this._closeTextArea}>x</Button>
-                    </div>
-                }
+                {showCommentTextArea && 
+                <div>
+                    <TextArea onChange={this._handleTextInput} />
+                    <Button _click={this._handleAddComment}>+</Button>
+                    <Button _click={this._closeTextArea}>x</Button>
+                </div>}
             </CommentContainer_Styled>
         )
     }

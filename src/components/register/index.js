@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { register } from './../../actions'
+import { register, createUser, cleanErrorStates } from './../../actions'
 import RegisterStep1 from './RegisterStep1'
-import RegisterStep2 from './RegisterStep2'
-import RegisterStep3 from './RegisterStep3'
+// import RegisterStep2 from './RegisterStep2'
+// import RegisterStep3 from './RegisterStep3'
+import { LoginError } from './../commonStyled'
 
 class Register extends Component {
 	
@@ -20,7 +21,22 @@ class Register extends Component {
 			step: 1,
 			email: '',
 			password: '',
-			passwordConf: ''
+			passwordConf: '',
+			daw: '',
+			soundcloud: '',
+			website: ''
+		}
+	}
+
+	componentWillUnmount() {
+		const { error, dispatch } = this.props
+		if(!!error) dispatch(cleanErrorStates())
+	}
+
+	componentDidUpdate() {
+		const { user, uid } = this.props
+		if(!!user && !!uid) {
+			this.props.history.push('/')
 		}
 	}
 
@@ -36,8 +52,8 @@ class Register extends Component {
 	_updateInformation({type, value}) { this.setState({[type]: value}) }
 
 	_submit() {
-		this.props.dispatch(submitUser({email, password}))
-		this.props.history.push('/')
+		const { email, password, daw, soundcloud, website} = this.state
+		this.props.dispatch(createUser(email, password, daw, soundcloud, website))
 	}
 
 	_onToken(token) {
@@ -45,32 +61,30 @@ class Register extends Component {
 	}
 
 	_renderStep() {
-		const { step } = this.state
-		const { _next, _updateInformation, _submit, _onToken } = this
-		switch(step) {
-			case 1: 
-				return RegisterStep1({_next, _updateInformation})
-			case 2:
-				return RegisterStep2({_next, _updateInformation, _onToken})
-			case 3:
-				return RegisterStep3({_submit, _updateInformation})
-			default:
-				break
-		}
+		const { _updateInformation, _submit } = this
+		return RegisterStep1({_submit, _updateInformation})
 	}
 
 	render() {
+		const { error } = this.props
 		return (
 			<div className="container">
-				<h4>
-					Register
-				</h4>
+				<h4>Register</h4>
 				{ this._renderStep() }
+				{
+					!!error && 
+					<LoginError>
+						{ error }
+					</LoginError>
+				}
 			</div>
 		)
 	}
 }
 
 export default connect(state => ({
-	dispatch: state.dispatch
+	dispatch: state.dispatch,
+	error: state.authReducer.error,
+	uid: state.authReducer.uid,
+	user: state.authReducer.user
 }))(Register)

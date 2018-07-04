@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import Nav from './Nav'
-import { login } from './../actions'
-import { LoginForm, LoginFormSection } from './commonStyled'
+import { login, cleanErrorStates } from './../actions'
+import { LoginForm, LoginFormSection, LoginError } from './commonStyled'
 
 class Login extends Component {
 	
@@ -17,23 +16,33 @@ class Login extends Component {
 	}
 
 	componentDidUpdate() {
-		const { user, token, history } = this.props
-		if(!!user && !!token) history.push('/')
+		const { user, uid, history } = this.props
+		if(!!user && !!uid) history.push('/')
+	}
+
+	componentWillUnmount() {
+		const { error, dispatch } = this.props
+		if(!!error) dispatch(cleanErrorStates())
 	}
 
 	_handleSubmit() {
 		const { email, password } = this.state
 		const { dispatch } = this.props
-		if(email.length > 0 && password.length > 0) dispatch(login({ email, password }))
-		else console.error('error')
+		
+		if(email.length > 0 && password.length > 0) {
+			 dispatch(login(email, password))
+		} else {
+			console.error('error')
+		}
 	}
 
 	render() {
 		return (
 			<div>
 				<div ref="container" className="container">	
+					
 					<LoginForm className="form-group">
-						<h4>Login</h4>
+						<h4>Sign In</h4>
 						<LoginFormSection>
 							<label>email</label>
 							<input 
@@ -49,6 +58,7 @@ class Login extends Component {
 							/>
 						</LoginFormSection>
 					</LoginForm>
+
 					<button 
 					className="btn btn-default"
 					onClick={this._handleSubmit}
@@ -56,6 +66,14 @@ class Login extends Component {
 						Login
 					</button>
 					<Link className="btn btn-default" to='/register'>Register</Link>
+
+					{
+						!!this.props.error &&
+						<LoginError>
+							{this.props.error}
+						</LoginError>
+					}
+
 				</div>
 			</div>
 		)
@@ -65,5 +83,6 @@ class Login extends Component {
 export default connect(state => ({
 	dispatch: state.dispatch,
 	user: state.authReducer.user,
-	token: state.authReducer.token
+	uid: state.authReducer.uid,
+	error: state.authReducer.error
 }))(Login)

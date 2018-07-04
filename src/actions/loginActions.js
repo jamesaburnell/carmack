@@ -2,36 +2,23 @@ import {
 	BEGIN_LOGIN,
 	LOGIN_SUCCESS,
 	LOGIN_FAILURE,
+	LOGOUT_SUCCESS,
 	BEGIN_REGISTER,
 	REGISTER_SUCCESS,
-	REGISTER_FAILURE
+	REGISTER_FAILURE,
+	CLEAN_ERROR_STATES
 } from './../constants/authConstants'
 
 import api from './../api'
 
-export function login(options) {
-	const { email, password } = options
+export function login(email, password) {
 	return dispatch => {
-		// dispatch(loginStart())
-		// api.post({
-		// 	route: '/login',
-		// 	payload: {
-		// 		email,
-		// 		password
-		// 	}
-		// })
-		// .then(res => JSON.parse(res.body))
-		// .then(res => dispatch(!!res.error ? loginFailure(res) : loginSuccess(res)))
-		if(email === 'test') {
-			dispatch(loginSuccess({
-				user: {
-					email: 'test',
-					token: 6969
-				}
-			}))
-		}
+		firebase	
+			.auth()
+			.signInWithEmailAndPassword(email, password)
+			.then(res => dispatch(loginSuccess(res)))
+			.catch(err => dispatch(loginFailure(err)))
 	}
-	
 }
 
 function loginStart() {
@@ -41,35 +28,58 @@ function loginStart() {
 }
 
 function loginSuccess(data){
-	console.log('success!')
 	return {
 		type: LOGIN_SUCCESS,
 		data
 	}
 }
 
-function loginFailure(res){
+function loginFailure(err) {
+	let e = err.code.split('/'),
+		errorMessage
+
+	if(e[0] === 'auth') {
+		errorMessage = 'invalid email or password'
+	} else {
+		errorMessage = 'unknown error'
+	}
+
 	return {
 		type: LOGIN_FAILURE,
-		data: res
+		data: errorMessage
 	}
 }
 
+function logoutSuccess(res) {
+	return {
+		type: LOGOUT_SUCCESS
+	}
+}
 
+export function logout() {
+	return dispatch => {	
+		firebase
+			.auth()
+			.signOut()
+			.then(res => dispatch(logoutSuccess(res)))
+			.catch(err => dispatch(logoutSuccess(err)));
+	}
+}
 
-export function register(options) {
-	const { email, password } = options
+export function cleanErrorStates() {
+	return {
+		type: CLEAN_ERROR_STATES
+	}
+}
+
+export function createUser(email, password, daw, soundcloud, website) {
 	return dispatch => {
 		dispatch(registerStart())
-		api.post({
-			route: '/register',
-			payload: {
-				email,
-				password
-			}
-		})
-		.then(res => JSON.parse(res.body))
-		.then(res => dispatch( res.success ? registerSuccess(res) : registerFailure(res) ))
+		firebase
+			.auth()
+			.createUserWithEmailAndPassword(email, password)
+			.then(res => dispatch(saveToFirestore({...res, daw, soundcloud, website})))
+			.catch(err => dispatch(registerFailure(err)))
 	}
 }
 
@@ -79,17 +89,29 @@ function registerStart() {
 	}
 }
 
-function registerSuccess(res){
-	console.log('success: ', res)
+function saveToFirestore(res) {
+	const { uid, email, daw, soundcloud, website } = res
+	return dispatch => {
+		firestore
+			.collection("user_info")
+			.doc(uid)
+			.set({email, daw, soundcloud, website})
+			.then(() => dispatch(registerSuccess(res)))
+			.catch(error => dispatch(registerFailure(res))) // should have a 'clean up auth database' method here first
+	}
+}
+
+function registerSuccess(res) {
 	return {
-		type: REGISTER_SUCCESS
+		type: LOGIN_SUCCESS,
+		data: res
 	}
 }
 
 function registerFailure(res){
-	console.error('FAIL: ', res)
 	return {
-		type: REGISTER_FAILURE
+		type: REGISTER_FAILURE,
+		data: res.message
 	}
 }
 

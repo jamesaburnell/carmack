@@ -26,6 +26,14 @@ export const LoginForm = styled.div`
     height: 140px;
 `
 
+export const LoginError = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: baseline;
+    color: red;
+`
+
 export const LoginFormSection = styled.div`
     display: flex;
     flex-direction: column;
