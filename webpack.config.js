@@ -1,7 +1,5 @@
-var webpack = require('webpack')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HTMLWebpackPlugin = require('html-webpack-plugin')
-var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 var path = require('path')
 var PROD = false
 
@@ -19,19 +17,18 @@ module.exports = {
 		contentBase: path.resolve(__dirname, 'dist')
 	},
 	module: {
-		loaders: [
+		rules: [
 			{
 				test: /\.(js|jsx)?$/,
 				exclude: '/node_modules/',
 				loader: 'babel-loader',
-				query: {
-					presets: [ 'env', 'react' ],
-					plugins: [ 'transform-object-rest-spread' ]
-				}
 			},
 			{
 				test: /\.(css|scss)/,
-				loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader!sass-loader' })
+				use: [
+					{loader: MiniCssExtractPlugin.loader},
+					"css-loader"
+				]
 			},
 			{
 				test: /\.(jpg|png|eot|woff2|woff|ttf|svg|mp3)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -49,22 +46,10 @@ module.exports = {
 		tls: 'empty'
 	},
 	watch: true,
+	mode: 'development',
 	devtool: 'cheap-module-eval-source-map',
-	plugins: PROD ? [
-		new webpack.optimize.UglifyJsPlugin({
-			compress: {warnings: false}
-		}),
-		new ExtractTextPlugin('bundle.css'),
-		new OptimizeCssAssetsPlugin(),
-		new HTMLWebpackPlugin({
-			filename: 'index.html',
-			template: './../index.html'
-		}),
-		new webpack.DefinePlugin({
-		    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-		})
-	] : [
-		new ExtractTextPlugin('bundle.css'),
+	plugins: [
+		new MiniCssExtractPlugin({filename: "[name].css"}),  
 		new HTMLWebpackPlugin({
 			filename: 'index.html',
 			template: './../index.html'
