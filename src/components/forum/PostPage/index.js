@@ -31,8 +31,8 @@ class PostPage extends Component {
             <PostPageContainer_Styled active={true} className="container">
                 <BackButton history={history} route={"/forum"} />
                 <PostPageQuestion_Styled>
-                    <Comment _addComment={this._addComment}>
-                        {selectedThread.question}
+                    <Comment>
+                        {selectedThread.subject}
                     </Comment>
                 </PostPageQuestion_Styled>
                 <CommentsController />

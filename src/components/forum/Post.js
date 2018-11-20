@@ -17,12 +17,12 @@ const Post = ({
     question, 
     comments,
     addedBy,
-    votes,
+    // votes,
     _handlePostSelect
 }) => (
     <PostContainer className="col-md-12 col-md-offset-2 col-lg-12 col-lg-offset-2">
         
-        <VoteNumContainer>
+        {/* <VoteNumContainer>
             {votes}
         </VoteNumContainer>
        
@@ -33,8 +33,7 @@ const Post = ({
             <VoteAction onClick={downvote}>
                 downvote
             </VoteAction>
-        </VoteActionContainer>
-        
+        </VoteActionContainer> */}
         <QuestionContainer>
             <Question 
                 onClick={_handlePostSelect}
