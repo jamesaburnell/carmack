@@ -46,7 +46,6 @@ const GET_COMMENT = gql`
 `
 
 class CommentsController extends Component {
-    
     constructor(props) {
         super(props)
         this._addComment = this._addComment.bind(this)
@@ -88,10 +87,11 @@ class CommentsController extends Component {
             <Mutation 
                 mutation={ADD_COMMENT}
                 update={(cache, { data: { createComment: comment } }) => {
-                    // const { newComments } = cache.readQuery({ query: GET_COMMENT })
+                    const { newComments } = cache.readQuery({ query: GET_COMMENT })
+                    
                     cache.writeQuery({
                         query: GET_COMMENT,
-                        data: { comments: comments.concat([comment]) }
+                        data: { comments: newComments.concat([comment]) }
                     })
                 }}
             >

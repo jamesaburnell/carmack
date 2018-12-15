@@ -4,32 +4,25 @@ import { connect } from 'react-redux'
 import * as actions from './actions'
 
 class App extends Component {
-
 	constructor(props) {
 		super(props)
 	}
-
 	render() {
 		return (
 			<div>
-				{ this.props.children }
+				{this.props.children}
 			</div>
 		)
 	}
 }
+const mapStateToProps = (state, ownProps) => ({
+	...state,
+	router: ownProps
+})
 
-function mapStateToProps(state, ownProps) {
-	return {
-		...state,
-		router: ownProps
-	}
-}
-
-function mapDispatchToProps(dispatch) {
-	return {
-		actions: bindActionCreators(actions, dispatch)
-	}
-}
+const mapDispatchToProps = (dispatch) => ({
+	actions: bindActionCreators(actions, dispatch)
+})
 
 export default connect(
 	mapStateToProps,

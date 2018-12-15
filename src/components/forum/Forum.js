@@ -24,6 +24,16 @@ const Forum = ({ dispatch, history }) =>
                             id
                             created_by_id
                             content
+                            comments {
+                                id
+                                created_by_id
+                                content
+                                comments {
+                                    id
+                                    created_by_id
+                                    content
+                                }
+                            }
                         }
                     }
                 }
