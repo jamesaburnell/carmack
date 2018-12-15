@@ -10,7 +10,7 @@ export const AppContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 40px;
+    margin-top: 20px;
 `
 
 export const HeaderLogoMain = styled.div`

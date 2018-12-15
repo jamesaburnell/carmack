@@ -9,7 +9,7 @@ import Forum from './components/forum/Forum.js'
 import PostPage from './components/forum/PostPage'
 
 const MainRoutes = () =>	
-	<div style={{marginBottom: 150, marginTop: 150}}>
+	<div style={{marginTop: 50}}>
 		<Switch>
 			<Route exact path='/' component={Landing} />
 			<Route path='/login' component={Login} />

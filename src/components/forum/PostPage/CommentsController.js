@@ -2,10 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import gql from "graphql-tag"
 import { Mutation } from "react-apollo"
-import {
-    Comments_Styled, 
-    CommentWrapper_Styled
-} from './styled'
+import { Comments_Styled, CommentWrapper_Styled } from './styled'
 import Comment from './Comment'
 import { addComment } from '../../../actions'
 
@@ -18,6 +15,7 @@ const ADD_COMMENT = gql`
             id
             content
             parent_id
+            comments
         }
     }
 `
@@ -90,17 +88,14 @@ class CommentsController extends Component {
             <Mutation 
                 mutation={ADD_COMMENT}
                 update={(cache, { data: { createComment: comment } }) => {
-                    console.log('comment: ', comment)
-                    console.log('GET_COMMENT: ', GET_COMMENT)
-                    const { newComments } = cache.readQuery({ query: GET_COMMENT })
+                    // const { newComments } = cache.readQuery({ query: GET_COMMENT })
                     cache.writeQuery({
                         query: GET_COMMENT,
-                        data: { comments: newComments.concat([comment]) }
+                        data: { comments: comments.concat([comment]) }
                     })
                 }}
             >
                 {(createComment, { data }) => {
-                    console.log('data:', data)
                     return (
                     <Comments_Styled>
                         {comments.map(({id, comments, content}, i) => (
