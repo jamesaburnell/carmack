@@ -1,11 +1,49 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {
-    Comments_Styled, 
-    CommentWrapper_Styled
-} from './styled'
+import gql from "graphql-tag"
+import { Mutation } from "react-apollo"
+import { Comments_Styled, CommentWrapper_Styled } from './styled'
 import Comment from './Comment'
 import { addComment } from '../../../actions'
+
+const ADD_COMMENT = gql`
+    mutation CreateComment ($content: String!, $parent_id: ID!){
+        createComment(
+            content: $content
+            parent_id: $parent_id
+        ) {
+            id
+            content
+            parent_id
+            comments
+        }
+    }
+`
+
+const GET_COMMENT = gql`
+    query Comment ($parent_id: ID!){
+        comments(parent_id: $parent_id) {
+            id
+            parent_id
+            content
+            comments {
+                id
+                parent_id
+                content
+                comments {
+                    id
+                    parent_id
+                    content
+                    comments {
+                        id
+                        parent_id
+                        content
+                    }
+                }
+            }
+        }
+    }
+`
 
 class CommentsController extends Component {
     
@@ -47,16 +85,30 @@ class CommentsController extends Component {
 
     _renderComments(comments){
         return (
-            <Comments_Styled>
-                {comments.map(({id, comments, comment}, i) => (
-                    <CommentWrapper_Styled key={`id_${i}`}>
-                        <Comment _addComment={value => this._addComment(value, id)}>
-                            {comment}
-                        </Comment>
-                        {comments && this._renderComments(comments)}
-                    </CommentWrapper_Styled>
-                ))}
-            </Comments_Styled>
+            <Mutation 
+                mutation={ADD_COMMENT}
+                update={(cache, { data: { createComment: comment } }) => {
+                    // const { newComments } = cache.readQuery({ query: GET_COMMENT })
+                    cache.writeQuery({
+                        query: GET_COMMENT,
+                        data: { comments: comments.concat([comment]) }
+                    })
+                }}
+            >
+                {(createComment, { data }) => {
+                    return (
+                    <Comments_Styled>
+                        {comments.map(({id, comments, content}, i) => (
+                            <CommentWrapper_Styled key={`id_${i}`}>
+                                <Comment _addComment={value => createComment({variables: { content: value, parent_id: id}})}>
+                                    {content}
+                                </Comment>
+                                {comments && this._renderComments(comments)}
+                            </CommentWrapper_Styled>
+                        ))}
+                    </Comments_Styled>
+                )}}
+            </Mutation>
         )
     }
 

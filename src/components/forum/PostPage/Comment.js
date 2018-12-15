@@ -23,6 +23,7 @@ export default class Comment extends Component {
     }
 
     _handleAddComment() {
+        console.log('COMMENT PROPS: ', this.props)
         if(this.state.newComment.length > 0) {
             this.props._addComment(this.state.newComment)
             this._closeTextArea()

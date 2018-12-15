@@ -1,6 +1,6 @@
 import request from 'request'
 import Promise from 'bluebird'
-import config from './../config'
+import * as CONFIG from './../config'
 
 function makeRequest(options) {
 	return new Promise ((resolve, reject) => {
@@ -17,7 +17,7 @@ export default {
 
 	sendEmailFromLandingPage(options) {
 		var requestOptions = {
-			url: config.uri + '/send-email',
+			url: CONFIG.uri + '/send-email',
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ ...options })
@@ -27,7 +27,7 @@ export default {
 
 	get(options) {
 		var requestOptions = {
-			url: `${config.uri}${options.route}${options.queryString || ''}`,
+			url: `${CONFIG.uri}${options.route}${options.queryString || ''}`,
 			method: 'GET',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ ...options.payload })
@@ -37,7 +37,7 @@ export default {
 
 	post(options) {
 		var requestOptions = {
-			url: `${config.uri}${options.route}${options.queryString || ''}`,
+			url: `${CONFIG.uri}${options.route}${options.queryString || ''}`,
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ ...options.payload })
@@ -47,7 +47,7 @@ export default {
 
 	put(options) {
 		var requestOptions = {
-			url: `${config.uri}/${options.route}${options.queryString || ''}`,
+			url: `${CONFIG.uri}/${options.route}${options.queryString || ''}`,
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ ...options.payload })
