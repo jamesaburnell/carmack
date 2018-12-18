@@ -1,21 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Query } from "react-apollo"
-import gql from "graphql-tag"
 import Post from './Post'
 import { upvote, downvote, selectThread } from './../../actions'
 import { ForumContainer } from './styled'
+import { Query } from './../common'
 
-const Forum = ({ dispatch, history }) => 
-    <Query
-        query={gql`
-            {
-                threads {
+let QUERY = `
+    {
+        threads {
+            id
+            created_by_id
+            subject
+            upvotes
+            downvotes
+            comments {
+                id
+                created_by_id
+                content
+                comments {
                     id
                     created_by_id
-                    subject
-                    upvotes
-                    downvotes
+                    content
                     comments {
                         id
                         created_by_id
@@ -24,23 +29,16 @@ const Forum = ({ dispatch, history }) =>
                             id
                             created_by_id
                             content
-                            comments {
-                                id
-                                created_by_id
-                                content
-                                comments {
-                                    id
-                                    created_by_id
-                                    content
-                                }
-                            }
                         }
                     }
                 }
             }
-        `}
-    >
-        {({ loading, error, data: { threads } }) => {
+        }
+    }
+`
+const Forum = ({ dispatch, history }) => 
+    <Query query={QUERY} url={'http://localhost:8000/graphql'}>
+        {({ loading, error, data }) => {
             if(loading) {
                 return (
                     <div style={{
@@ -67,7 +65,7 @@ const Forum = ({ dispatch, history }) =>
             return (
                 <ForumContainer className="container">
                     {    
-                        threads.map(thread => 
+                        data.threads.map(thread => 
                             <Post 
                                 question={thread.subject} 
                                 comments={thread.comments} 

@@ -15,6 +15,10 @@ function makeRequest(options) {
 
 export default {
 
+	query() {
+		console.log('query')
+	},
+
 	sendEmailFromLandingPage(options) {
 		var requestOptions = {
 			url: CONFIG.uri + '/send-email',
@@ -53,6 +57,6 @@ export default {
 			body: JSON.stringify({ ...options.payload })
 		}
 		return makeRequest(requestOptions)
-	}
+	},
 
 }

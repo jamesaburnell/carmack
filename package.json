@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "apollo-boost": "^0.1.21",
+    "axios": "^0.18.0",
     "bluebird": "^3.5.0",
     "css-loader": "^0.28.0",
     "expose-loader": "^0.7.3",
