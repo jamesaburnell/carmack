@@ -4,6 +4,8 @@ import Post from './Post'
 import { upvote, downvote, selectThread } from './../../actions'
 import { ForumContainer } from './styled'
 import { Query } from './../common'
+import { checkLoginStatus } from '../../helpers/util';
+import api from '../../api';
 
 let QUERY = `
     {
@@ -36,56 +38,65 @@ let QUERY = `
         }
     }
 `
-const Forum = ({ dispatch, history }) => 
-    <Query query={QUERY} url={'http://localhost:8000/graphql'}>
-        {({ loading, error, data }) => {
-            if(loading) {
-                return (
-                    <div style={{
-                        position: 'absolute',
-                        top: 0,
-                        right: 0,
-                        left: 0,
-                        bottom: 0,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-                        <div class="spinner">
-                            <div class="rect1"></div>
-                            <div class="rect2"></div>
-                            <div class="rect3"></div>
-                            <div class="rect4"></div>
-                            <div class="rect5"></div>
-                        </div>
-                    </div>
-                )
-            }
-            if (error) return <p>Error :(</p>
-            return (
-                <ForumContainer className="container">
-                    {    
-                        data.threads.map(thread => 
-                            <Post 
-                                question={thread.subject} 
-                                comments={thread.comments} 
-                                votes={thread.votes} 
-                                upvote={() => dispatch(upvote(thread.id))}
-                                downvote={() => dispatch(downvote(thread.id))}
-                                _handlePostSelect={() => {
-                                    dispatch(selectThread(thread))
-                                    history.push('/post')
-                                }}
-                                key={thread.id}
-                            />
-                        )
-                    }
-                </ForumContainer>
-            )
-        }}
-    </Query>
+const Forum = ({ dispatch, history, auth }) => {
+    // checkLoginStatus({history, auth})
 
+    api.get({route: '/thread'})
+        .then(res => console.log(JSON.parse(res.body)))
+
+    return (
+        <Query query={QUERY} url={'http://localhost:8000/graphql'}>
+            {({ loading, error, data }) => {
+                if(loading) {
+                    return (
+                        <div style={{
+                            position: 'absolute',
+                            top: 0,
+                            right: 0,
+                            left: 0,
+                            bottom: 0,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <div className="spinner">
+                                <div className="rect1"></div>
+                                <div className="rect2"></div>
+                                <div className="rect3"></div>
+                                <div className="rect4"></div>
+                                <div className="rect5"></div>
+                            </div>
+                        </div>
+                    )
+                }
+                if (error) return <p>Error :(</p>
+                return (
+                    <ForumContainer className="container">
+                        {    
+                            data.threads.map(thread => 
+                                <Post 
+                                    question={thread.subject} 
+                                    comments={thread.comments} 
+                                    votes={thread.votes} 
+                                    upvote={() => dispatch(upvote(thread.id))}
+                                    downvote={() => dispatch(downvote(thread.id))}
+                                    _handlePostSelect={() => {
+                                        dispatch(selectThread(thread))
+                                        history.push('/post')
+                                    }}
+                                    key={thread.id}
+                                />
+                            )
+                        }
+                    </ForumContainer>
+                )
+            }}
+        </Query>
+    )
+    
+}
 export default connect(state => ({
+    auth: state.authReducer,
     threads: state.forum.threads,
     votes: state.forum.votes
 }))(Forum)

@@ -34,7 +34,7 @@ export default {
 			url: `${CONFIG.uri}${options.route}${options.queryString || ''}`,
 			method: 'GET',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ ...options.payload })
+			body: JSON.stringify(options.payload)
 		}
 		return makeRequest(requestOptions)
 	},
@@ -44,7 +44,7 @@ export default {
 			url: `${CONFIG.uri}${options.route}${options.queryString || ''}`,
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ ...options.payload })
+			body: JSON.stringify(options.payload)
 		}
 		return makeRequest(requestOptions)
 	},
@@ -54,7 +54,7 @@ export default {
 			url: `${CONFIG.uri}/${options.route}${options.queryString || ''}`,
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ ...options.payload })
+			body: JSON.stringify(options.payload)
 		}
 		return makeRequest(requestOptions)
 	},

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import gql from "graphql-tag"
-import { Mutation } from "react-apollo"
+import { Query } from './../../common'
 import { Comments_Styled, CommentWrapper_Styled } from './styled'
 import Comment from './Comment'
 import { addComment } from '../../../actions'
@@ -16,31 +16,6 @@ const ADD_COMMENT = gql`
             content
             parent_id
             comments
-        }
-    }
-`
-
-const GET_COMMENT = gql`
-    query Comment ($parent_id: ID!){
-        comments(parent_id: $parent_id) {
-            id
-            parent_id
-            content
-            comments {
-                id
-                parent_id
-                content
-                comments {
-                    id
-                    parent_id
-                    content
-                    comments {
-                        id
-                        parent_id
-                        content
-                    }
-                }
-            }
         }
     }
 `
@@ -84,23 +59,24 @@ class CommentsController extends Component {
 
     _renderComments(comments){
         return (
-            <Mutation 
-                mutation={ADD_COMMENT}
-                update={(cache, { data: { createComment: comment } }) => {
-                    const { newComments } = cache.readQuery({ query: GET_COMMENT })
-                    
-                    cache.writeQuery({
-                        query: GET_COMMENT,
-                        data: { comments: newComments.concat([comment]) }
-                    })
-                }}
-            >
-                {(createComment, { data }) => {
+            <Query stopAutoload={true}>
+                {({ loading, error, data, mutate }) => {
                     return (
                     <Comments_Styled>
                         {comments.map(({id, comments, content}, i) => (
                             <CommentWrapper_Styled key={`id_${i}`}>
-                                <Comment _addComment={value => createComment({variables: { content: value, parent_id: id}})}>
+                                <Comment 
+                                    _addComment={value => 
+                                        mutate({
+                                            query: ADD_COMMENT,
+                                            variables: {
+                                                "id": String(Math.round(Math.random() * 1000000)),
+                                                "parent_id": id,
+                                                "content": value
+                                            }
+                                        })
+                                    }
+                                >
                                     {content}
                                 </Comment>
                                 {comments && this._renderComments(comments)}
@@ -108,7 +84,7 @@ class CommentsController extends Component {
                         ))}
                     </Comments_Styled>
                 )}}
-            </Mutation>
+            </Query>
         )
     }
 

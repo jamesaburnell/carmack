@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { print } from 'graphql'
+import { apiUrl as url } from './../../../config'
 
 export class Query extends Component {
     constructor(props) {
         super(props)
         this._fetch = this._fetch.bind(this)
+        this._mutate = this._mutate.bind(this)
         this.state = { 
             loading: true, 
             error: undefined,
@@ -13,10 +16,33 @@ export class Query extends Component {
     }
 
     componentDidMount() {
-        this._fetch(this.props)
+        !this.props.stopAutoload && this._fetch(this.props)
     }
 
-    _fetch({ query, url }) {
+    _mutate({ query, variables }) {
+        console.log(variables, url)
+        // axios.post(url, { 
+        //     query: print(query), 
+        //     variables 
+        // }).then(({ data: { data } }) => {
+        //     this.setState({loading: false, data})
+        // }).catch(error => {
+        //     this.setState({
+        //         loading: false,
+        //         error
+        //     })
+        //     console.error('ERROR: ', error)
+        // })
+        axios
+            .post(url, {
+                query: print(query),
+                variables
+            })
+            .then(res => console.log(res))
+            .catch(err => console.log('err: ', err))
+    }
+
+    _fetch({ query }) {
         this.setState({ loading: true })
         axios({ 
             url,
@@ -36,7 +62,7 @@ export class Query extends Component {
     render() {
         return (
             <div>
-                {this.props.children({...this.props, ...this.state})}
+                {this.props.children({...this.props, ...this.state, mutate: this._mutate})}
             </div>
         )
     }

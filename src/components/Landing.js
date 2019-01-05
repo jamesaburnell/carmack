@@ -9,34 +9,27 @@ import './../assets/testimg3.jpg'
 import './../assets/testimg4.jpg'
 import './../assets/testimg5.jpg'
 import './../assets/testimg6.jpg'
+import { checkLoginStatus } from '../helpers/util.js'
 
 class Landing extends Component {
 	
 	constructor(props){
 		super(props)
-		this._checkLoginStatus = this._checkLoginStatus.bind(this)
 		this.state = {}
 	}
 
 	componentWillMount() {
-		this._checkLoginStatus()
+		checkLoginStatus(this.props)
 	}
 
 	componentWillUpdate() {
-		this._checkLoginStatus()
+		checkLoginStatus(this.props)
 	}
 
 	componentDidUpdate() {
-		this._checkLoginStatus()		
+		checkLoginStatus(this.props)		
 	}
 	
-	_checkLoginStatus() {
-		const { user, uid } = this.props.auth
-		if(!user || !uid) {
-			this.props.history.push('/login')
-		}
-	}
-
 	render() {
 		return (
 			<AppContainer>
