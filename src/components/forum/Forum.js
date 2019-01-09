@@ -39,11 +39,7 @@ let QUERY = `
     }
 `
 const Forum = ({ dispatch, history, auth }) => {
-    // checkLoginStatus({history, auth})
-
-    api.get({route: '/thread'})
-        .then(res => console.log(JSON.parse(res.body)))
-
+    checkLoginStatus({history, auth})
     return (
         <Query query={QUERY} url={'http://localhost:8000/graphql'}>
             {({ loading, error, data }) => {
@@ -78,8 +74,8 @@ const Forum = ({ dispatch, history, auth }) => {
                                     question={thread.subject} 
                                     comments={thread.comments} 
                                     votes={thread.votes} 
-                                    upvote={() => dispatch(upvote(thread.id))}
-                                    downvote={() => dispatch(downvote(thread.id))}
+                                    upvote={() => console.log('upvote: ', thread.id)}
+                                    downvote={() => console.log('downvote: ', thread.id)}
                                     _handlePostSelect={() => {
                                         dispatch(selectThread(thread))
                                         history.push('/post')

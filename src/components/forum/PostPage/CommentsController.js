@@ -15,7 +15,6 @@ const ADD_COMMENT = gql`
             id
             content
             parent_id
-            comments
         }
     }
 `

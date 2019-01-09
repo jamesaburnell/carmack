@@ -20,25 +20,12 @@ export class Query extends Component {
     }
 
     _mutate({ query, variables }) {
-        console.log(variables, url)
-        // axios.post(url, { 
-        //     query: print(query), 
-        //     variables 
-        // }).then(({ data: { data } }) => {
-        //     this.setState({loading: false, data})
-        // }).catch(error => {
-        //     this.setState({
-        //         loading: false,
-        //         error
-        //     })
-        //     console.error('ERROR: ', error)
-        // })
         axios
             .post(url, {
                 query: print(query),
                 variables
             })
-            .then(res => console.log(res))
+            .then(res => console.log('new data: ', res))
             .catch(err => console.log('err: ', err))
     }
 
