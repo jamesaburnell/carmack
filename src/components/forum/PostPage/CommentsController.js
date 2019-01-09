@@ -25,6 +25,8 @@ class CommentsController extends Component {
         this._addComment = this._addComment.bind(this)
     }
 
+
+
     _addComment(value, parentId) {
         const { selectedThread, dispatch } = this.props
         const updatedComments = this._updateComments(selectedThread.comments, parentId, value)
@@ -40,7 +42,7 @@ class CommentsController extends Component {
                 element = {
                     ...element,
                     comments: element.comments.concat({
-                        comment: value, 
+                        content: value, 
                         id: `${element.id}_child`, 
                         comments: []
                     })
@@ -74,6 +76,8 @@ class CommentsController extends Component {
                                                 "content": value
                                             }
                                         })
+                                        .then(({data: { data: { createComment: {content, parent_id} } }}) => this._addComment(content, parent_id))
+                                        .catch(error => console.error('error from comments controller: ', error))
                                     }
                                 >
                                     {content}
@@ -88,6 +92,7 @@ class CommentsController extends Component {
     }
 
     render() {
+        console.log(this.props.selectedThread)
         return this._renderComments(this.props.selectedThread.comments)
     }
 }

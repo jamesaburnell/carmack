@@ -39,7 +39,7 @@ let QUERY = `
     }
 `
 const Forum = ({ dispatch, history, auth }) => {
-    checkLoginStatus({history, auth})
+    // checkLoginStatus({history, auth})
     return (
         <Query query={QUERY} url={'http://localhost:8000/graphql'}>
             {({ loading, error, data }) => {
@@ -93,6 +93,5 @@ const Forum = ({ dispatch, history, auth }) => {
 }
 export default connect(state => ({
     auth: state.authReducer,
-    threads: state.forum.threads,
     votes: state.forum.votes
 }))(Forum)

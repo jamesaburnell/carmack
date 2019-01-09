@@ -20,14 +20,12 @@ export class Query extends Component {
     }
 
     _mutate({ query, variables }) {
-        axios
-            .post(url, {
-                query: print(query),
-                variables
-            })
-            .then(res => console.log('new data: ', res))
-            .catch(err => console.log('err: ', err))
-    }
+        return axios
+                .post(url, {
+                    query: print(query),
+                    variables
+                }).catch(err => console.log('err: ', err))
+        }
 
     _fetch({ query }) {
         this.setState({ loading: true })
